@@ -1,4 +1,4 @@
-export function createCard(data, handleDelete, handleImageClick) {
+export function createCard(data, handleDelete, handleImageClick, handleLike) {
   const cardTemplate = document.querySelector("#card-template").content;
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
 
@@ -11,9 +11,7 @@ export function createCard(data, handleDelete, handleImageClick) {
   cardImage.alt = data.name;
   cardTitle.textContent = data.name;
 
-  likeButton.addEventListener("click", () => {
-    likeButton.classList.toggle("card__like-button_is-active");
-  });
+  likeButton.addEventListener("click", () => handleLike(likeButton));
 
   deleteButton.addEventListener("click", () => handleDelete(cardElement));
 
