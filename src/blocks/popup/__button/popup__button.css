@@ -19,6 +19,13 @@
   cursor: pointer;
 }
 
+.card__like-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px; 
+}
+
 @media screen and (max-width: 568px) {
   .popup__button {
     font-size: 14px;
