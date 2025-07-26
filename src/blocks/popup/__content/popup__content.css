@@ -13,6 +13,10 @@
   min-height: 181px;
 }
 
+.popup_type_avatar .popup__content {
+  min-height: 181px;
+}
+
 .popup_type_confirm .popup__button {
   margin-top: 38px;
 }

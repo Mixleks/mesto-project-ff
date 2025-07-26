@@ -26,6 +26,15 @@
   gap: 3px; 
 }
 
+.popup__button_disabled {
+  opacity: 0.2;              /* Прозрачность */
+  color: #000;               /* Тёмный текст */
+  border: 1px solid #000;    /* Чёрная рамка */
+  background: transparent;   /* Прозрачный фон */
+  pointer-events: none;      /* Отключаем клики */
+  cursor: default;           /* Меняем курсор */
+  transition: opacity 0.3s;  /* Плавность */
+}
 @media screen and (max-width: 568px) {
   .popup__button {
     font-size: 14px;

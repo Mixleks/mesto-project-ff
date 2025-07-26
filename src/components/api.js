@@ -70,6 +70,3 @@ export function updateAvatar(avatarLink) {
   }).then(handleResponse);
 }
 
-export function renderLoading(button, isLoading, initialText = "Сохранить") {
-  button.textContent = isLoading ? "Сохранение..." : initialText;
-}

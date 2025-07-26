@@ -25,7 +25,8 @@ function showInputError(inputElement, errorElement, errorMessage, config) {
   errorElement.classList.add(config.errorClass);
 }
 
-function hideInputError(inputElement, errorElement, config) {
+function hideInputError(formElement, inputElement, config) {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.remove(config.inputErrorClass);
   errorElement.classList.remove(config.errorClass);
   errorElement.textContent = '';
@@ -35,24 +36,28 @@ function checkInputValidity(formElement, inputElement, config) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
   if (inputElement.validity.patternMismatch) {
-    showInputError(inputElement, errorElement, 'Разрешены только латинские, кириллические буквы, дефисы и пробелы', config);
-  }
-  else if (inputElement.validity.typeMismatch) {
-    showInputError(inputElement, errorElement, 'Введите адрес сайта.', config);}
-     else if (inputElement.validity.valueMissing) {
-    showInputError(inputElement, errorElement, 'Заполните это поле', config);
-  } else if (inputElement.validity.tooShort) {
-    showInputError(inputElement, errorElement, `Минимум ${inputElement.minLength} символа`, config);
+    const customMessage = inputElement.dataset.errorMessage;
+    showInputError(inputElement, errorElement, customMessage, config);
+  } else if (!inputElement.validity.valid) {
+    showInputError(inputElement, errorElement, inputElement.validationMessage, config);
   } else {
-    hideInputError(inputElement, errorElement, config);
+    hideInputError(formElement, inputElement, config);
   }
 }
 
-
 function toggleButtonState(inputList, buttonElement, config) {
   const hasInvalidInput = inputList.some((inputElement) => !inputElement.validity.valid);
-  buttonElement.disabled = hasInvalidInput;
-  buttonElement.classList.toggle(config.inactiveButtonClass, hasInvalidInput);
+  if (hasInvalidInput) {
+    disableButton(buttonElement, config);
+  } else {
+    buttonElement.classList.remove(config.inactiveButtonClass);
+    buttonElement.disabled = false;
+  }
+}
+
+function disableButton(buttonElement, config) {
+  buttonElement.classList.add(config.inactiveButtonClass);
+  buttonElement.disabled = true;
 }
 
 export function clearValidation(formElement, config) {
@@ -60,13 +65,8 @@ export function clearValidation(formElement, config) {
   const buttonElement = formElement.querySelector(config.submitButtonSelector);
 
   inputList.forEach((inputElement) => {
-    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    if (errorElement) {
-      errorElement.textContent = '';
-    }
-    inputElement.classList.remove(config.inputErrorClass);
+    hideInputError(formElement, inputElement, config);
   });
 
-  buttonElement.classList.add(config.inactiveButtonClass);
-  buttonElement.disabled = true;
+  disableButton(buttonElement, config);
 }

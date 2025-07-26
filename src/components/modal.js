@@ -1,14 +1,6 @@
-import { clearValidation } from './validate.js';
-
-export function openModal(popup, formElement = null, config = null) {
+export function openModal(popup) {
   document.addEventListener("keydown", handleEscClose);
   popup.classList.add("popup_is-animated");
-
-  // ✅ Проверка: если есть форма и конфиг — сбрасываем валидацию
-  if (formElement && config) {
-    clearValidation(formElement, config);
-  }
-
   setTimeout(() => popup.classList.add("popup_is-opened"), 10);
 }
 
@@ -17,8 +9,6 @@ export function closeModal(popup) {
   document.removeEventListener("keydown", handleEscClose);
   setTimeout(() => popup.classList.remove("popup_is-animated"), 600);
 }
-
-// Добавим универсальные функции открытия/закрытия
 
 function handleEscClose(evt) {
   if (evt.key === "Escape") {
