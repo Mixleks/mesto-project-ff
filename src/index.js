@@ -114,7 +114,6 @@ editButton.addEventListener("click", () => {
   const editProfileForm = popupEdit.querySelector(".popup__form");
   openModal(popupEdit, editProfileForm, validationConfig);
   clearValidation(editProfileForm, validationConfig);
-  editProfileForm.reset();
 });
 
 addButton.addEventListener("click", () => {

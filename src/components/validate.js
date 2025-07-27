@@ -35,10 +35,7 @@ function hideInputError(formElement, inputElement, config) {
 function checkInputValidity(formElement, inputElement, config) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
-  if (inputElement.validity.patternMismatch) {
-    const customMessage = inputElement.dataset.errorMessage;
-    showInputError(inputElement, errorElement, customMessage, config);
-  } else if (!inputElement.validity.valid) {
+  if (!inputElement.validity.valid) {
     showInputError(inputElement, errorElement, inputElement.validationMessage, config);
   } else {
     hideInputError(formElement, inputElement, config);
@@ -68,5 +65,6 @@ export function clearValidation(formElement, config) {
     hideInputError(formElement, inputElement, config);
   });
 
-  disableButton(buttonElement, config);
+  // Вместо жесткой деактивации проверяем снова
+  toggleButtonState(inputList, buttonElement, config);
 }
