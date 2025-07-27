@@ -64,7 +64,6 @@ export function clearValidation(formElement, config) {
   inputList.forEach((inputElement) => {
     hideInputError(formElement, inputElement, config);
   });
-
-  // Вместо жесткой деактивации проверяем снова
+  
   toggleButtonState(inputList, buttonElement, config);
 }
